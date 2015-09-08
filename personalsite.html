@@ -1,0 +1,467 @@
+<html>
+<head>
+<title>My Personal Site</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<style>
+/*CSS style*/
+body
+{
+	margin: 0;
+	padding: 0;
+	background:#111111;
+	color: #ffffff;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 20px;
+}
+
+#main
+{
+	text-align: center;
+}
+
+h1
+{
+	font-weight: bold;
+	font-size: 40px;
+	letter-spacing: -1px;
+	line-height: 36px;
+	color: #ffffff;
+}
+
+h2
+{
+	font-weight: bold;
+	font-size: 36px;
+	letter-spacing: -1px;
+	line-height: 44px;
+	color: #ffffff;
+}
+h3
+{
+	font-weight: bold;
+	font-size: 26px;
+	letter-spacing: -1px;
+	line-height: 44px;
+	color: #ffffff;
+}
+
+p
+{
+    font-size: 25px;
+    line-height: 28px;
+	text-align:center;
+	
+}
+
+.circle
+{
+	border-radius:100%;
+}
+
+#profile_block
+{
+	background-image: url(https://s3-eu-west-1.amazonaws.com/uploads-eu.hipchat.com/81799/846306/IPSKCx6je2RKPxV/background%20pic.jpg);
+	width:100%;
+	height:90%;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#profilepic 
+{
+	box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+	width:180px;
+	margin-top: 55px;
+}
+#address_block 
+{
+	
+	float:left;
+	margin-left:10%;
+}
+
+#email_block 
+{
+	float:right;
+	margin-right:10%;
+	
+}
+
+#menu 
+{
+	positon: absolute;
+	width:100%;	
+	background: #2f3036;
+}
+
+ul 
+{
+	list-style-type:none;
+	margin:0;
+	padding:0;
+	position: absolute;
+}
+
+
+li 
+{
+	display:inline-block;
+	float: left;
+	margin-right: 1px;
+}
+
+/*Style for menu links*/
+li a 
+{
+	display:block;
+	min-width:140px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #fff;
+	background: #2f3036;
+	text-decoration: none;
+}
+
+
+li:hover a 
+{
+	background: #19c589;
+}
+
+/*Style for dropdown links*/
+li:hover ul a 
+{
+	background: #f3f3f3;
+	color: #2f3036;
+	height: 40px;
+	line-height: 40px;
+}
+
+
+li:hover ul a:hover 
+{
+	background: #19c589;
+	color: #fff;
+}
+
+/*Hide dropdown links until they are needed*/
+li ul 
+{
+	display: none;
+}
+
+/*Make dropdown links vertical*/
+li ul li 
+{
+	display: block;
+	float: none;
+}
+
+/*Prevent text wrapping*/
+li ul li a 
+{
+	width: auto;
+	min-width: 100px;
+	padding: 0 20px;
+}
+
+/*Display the dropdown on hover*/
+ul li a:hover + .hidden, .hidden:hover 
+{
+	display: block;
+}
+
+/*Style 'show menu' label button and hide it by default*/
+.show-menu 
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-decoration: none;
+	color: #fff;
+	background: #19c589;
+	text-align: center;
+	padding: 10px 0;
+	display: none;
+}
+
+/*Hide checkbox*/
+input[type=checkbox]
+{
+    display: none;
+}
+
+/*Show menu when invisible checkbox is checked*/
+input[type=checkbox]:checked ~ #menu
+{
+    display: block;
+}
+
+
+/*Responsive Styles*/
+
+@media screen and (max-width : 760px)
+{
+	/*Make dropdown links appear inline*/
+	ul {
+		position: absolute;
+		display: none;
+	}
+	/*Create vertical spacing*/
+	li {
+		margin-bottom: 1px;
+	}
+	/*Make all menu links full width*/
+	ul li, li a {
+		width: 100%;
+	}
+	/*Display 'show menu' link*/
+	.show-menu {
+		display:block;
+	}
+}
+
+#edit_email, #edit_address, #edit_name
+{
+	    
+	position:fixed;
+    bottom:0;
+    top:0;
+    background:#ffffff;
+    color:#000000;
+    width:100%;
+    text-align:center;
+    padding:0px;
+	display:none;
+}
+
+#go_up
+{
+	display:none;
+	position:fixed;
+	bottom:0;
+	left:0;
+	background:#ffffff;
+	color:#000000;
+	opacity:0.6;
+	width:25%;
+	border-radius:10px 10px 0px 0px;
+	text-align:ceter;
+	margin-left:40%;
+	padding:0px;
+	cursor: pointer;
+}
+
+#emailchange, #streetchange, #citychange, #zipchange, #statechange, #titlechange, #firstchange, #lastchange
+{
+	moz-box-sizing: border-box;
+	background-color: #FFFFFF;
+	border: 1px solid #E0E0E0;
+	border-radius: 3px;
+	box-shadow: none;
+	height: 30px;
+	line-height: 1.5;
+	margin-left: 40%;
+	padding: 4px 6px;
+	vertical-align: middle;
+	width: auto;
+	display: block;
+}
+#emailsubmit, #cancelemailsubmit, #addresssubmit, #namesubmit, #canceladdresssubmit, #cancelnamesubmit
+{
+	margin:10px;
+	background: #72A629
+	moz-box-sizing: border-box;
+	border: 1px solid #E0E0E0;
+	border-radius: 3px;
+	box-shadow: none;
+	height: 30px;
+	line-height: 1.5;
+	margin-left: 45%;
+	padding: 4px 6px;
+	vertical-align: middle;
+	width: auto;
+	display: block;
+	color:#000000;
+	cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="main">
+	<div id="menu">
+	<label for="show-menu" class="show-menu">Menu</label>
+	<input type="checkbox" id="show-menu" role="button">
+		<ul id="menu">
+		<li><a id="home" href="#">Home</a></li>
+		<li><a id="contact_link" href="#">Contact</a></li>
+		<li>
+			<a href="#">Edit</a>
+			<ul class="hidden">
+				<li><a href="#" id="enter_name">Full Name</a></li>
+				<li><a href="#" id="enter_email">Email</a></li>
+				<li><a href="#" id="enter_address">Address</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+	<div id="profile_block">
+		<img class="circle" id="profilepic" alt="Profile picture">
+		<div id="name_block">
+			<h1 id="fullname"></h1>
+			<p id="username"></p>
+		</div>
+	</div>
+	<div id="contact_block">
+	<a name="contact_anchor"/>
+	<h2>Contact</h2>
+	<div id="address_block">
+	<h3>Address</h3>
+		<p id="street"></p>
+	    <p id="city"></p>
+		<p id="state"></p>
+		<p id="zip"></p>
+	</div>
+	<div id="email_block">
+		<p id="email"></p>
+	</div>
+	</div>
+</div>
+
+<div id="edit_email">
+		<p>Enter your email address:</p>
+		<input type="text" id="emailchange">
+		<input type="submit" value="Submit" id="emailsubmit">
+		<input type="submit" value="Cancel" id="cancelemailsubmit">	
+</div>
+<div id="edit_address">
+		<p>Enter your address:</p>
+		Street:<input type="text" id="streetchange">
+		City:<input type="text" id="citychange">
+		State:<input type="text" id="statechange">
+		Zip:<input type="text" id="zipchange">
+		<input type="submit" value="Submit" id="addresssubmit">
+		<input type="submit" value="Cancel" id="canceladdresssubmit">
+</div>
+<div id="edit_name">
+		<p>Enter your fullname:</p>
+		Title:<input type="text" id="titlechange">
+		First:<input type="text" id="firstchange">
+		Last:<input type="text" id="lastchange">
+		<input type="submit" value="Submit" id="namesubmit">
+		<input type="submit" value="Cancel" id="cancelnamesubmit">
+</div>
+<div id="go_up"><p>Back to top<p><div>	
+<script>
+$(document).ready(function() {
+/*Perform the ajax request to get the JSON data from the API*/
+
+var userinfo;
+
+$.ajax({
+  url: 'https://randomuser.me/api/',
+  dataType: 'json',
+  success: function(data){
+    console.log(data);
+	userinfo=data;
+	ShowData();
+  }
+});
+
+/*Once I have a successful JSON doc I call this function to show results*/
+function ShowData()
+{
+$('#profilepic').attr("src", userinfo['results'][0]['user'].picture.medium);
+
+/*Make the first letter of each word, uppercase*/
+var fullnamestr = userinfo['results'][0]['user'].name.title+' '+userinfo['results'][0]['user'].name.first+' '+userinfo['results'][0]['user'].name.last;
+fullnamestr = fullnamestr.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+ return letter.toUpperCase();
+});
+
+/*Populate the different fields of the website*/
+
+$('#email').text('Email: '+userinfo['results'][0]['user'].email);
+$('#zip').text('ZIP Code: '+userinfo['results'][0]['user'].location.zip);
+$('#state').text('State: '+userinfo['results'][0]['user'].location.state);
+$('#city').text('City: '+userinfo['results'][0]['user'].location.city);
+$('#street').text('Street: '+userinfo['results'][0]['user'].location.street);
+$('#username').text('#Username: '+userinfo['results'][0]['user'].username);
+$('#fullname').text(fullnamestr);
+ }
+/*Code to scroll automatically up and down the website*/
+var anchor = $("a[name='contact_anchor']");
+ 
+$("#contact_link").click(function() {
+   $('html,body').animate({scrollTop: anchor.offset().top},'slow');
+   $("#go_up").show("slow");
+});
+
+$("#go_up").click(function() {
+   $('html,body').animate({scrollTop: 0},'slow');
+    $("#go_up").hide("slow");
+});
+$("#go_up").click(function() {
+   $('html,body').animate({scrollTop: 0},'slow');
+});
+
+/*Fields to modify email, address and fullname*/
+$("#enter_email").click(function() {
+   $("#edit_email").show();
+});
+
+$('#emailsubmit').click(function(){
+ if(!($('#emailchange').val())) alert ('Email field is empty!');
+ else{
+    $('#email').text('Email: '+$('#emailchange').val());
+	$("#edit_email").hide();
+	}
+ });
+
+$("#enter_address").click(function() {
+   $("#edit_address").show();
+});
+
+$('#addresssubmit').click(function(){
+ if((!($('#streetchange').val()))||(!($('#zipchange').val()))||(!($('#citychange').val()))||(!($('#statechange').val()))) alert ('All fields are required!');
+ else{
+	$('#zip').text('ZIP Code: '+$('#zipchange').val());
+	$('#state').text('State: '+$('#statechange').val());
+	$('#city').text('City: '+$('#citychange').val());
+	$('#street').text('Street: '+$('#streetchange').val());
+	$("#edit_address").hide();
+	}
+ });
+ 
+ $("#enter_name").click(function() {
+   $("#edit_name").show();
+});
+
+$('#namesubmit').click(function(){
+ if((!($('#titlechange').val()))||(!($('#firstchange').val()))||(!($('#lastchange').val()))) alert ('All fields are required!');
+ else{
+	$('#fullname').text($('#titlechange').val()+' '+$('#firstchange').val()+' '+$('#lastchange').val());
+	$("#edit_name").hide();
+	}
+ });
+ 
+$("#cancelemailsubmit").click(function() {
+   $("#edit_email").hide();
+});
+
+$("#canceladdresssubmit").click(function() {
+    $("#edit_address").hide();
+});
+
+$("#cancelnamesubmit").click(function() {
+    $("#edit_name").hide();
+});
+});
+</script>
+</body>
+</html>
